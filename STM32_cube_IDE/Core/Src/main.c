@@ -86,16 +86,60 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  int counter = 0;
+  int green_state = 1, yellow_state = 1;
+  //int red_state = 1; //for noise
+  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
+	  switch(counter){
+	  	  case 2:
+	  		  if(yellow_state < 1) //equal 0 LED on
+	  		  {
+	  			  	 //turn off yellow led
+	  			HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
+	  			yellow_state = 1;
+	  				//turn on green led
+	  			HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
+	  			green_state = 0;
+	  			//reset counter
+	  			counter = 0;
+	  		  }
+	  		  break;
+	  	  case 3:
+	  		  if(green_state < 1) //equal 0 LED ON
+	  		  {
+	  			  //Turn off green led
+	  			HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET);
+	  			green_state = 1;
+	  				//Turn on red led
+	  			HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+	  			//red_state = 1;
+	  			//reset counter
+	  			counter = 0;
+	  		  }
+	  		  break;
+	  	  case 5:
+	  		  //turn off red led
+	  		HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
+	  		//red_state = 0;
+	  		//turn on yellow led
+	  		HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
+			yellow_state = 0;
+			//set counter = 0
+	  		counter = 0;
+	  		  break;
+	  	  default:
+	  		  //std::throw "change value by noise";
+	  		  break;
+	  }
+	  counter++;
 	  HAL_Delay(1000);
-	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -151,10 +195,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin;
+  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin */
+  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
