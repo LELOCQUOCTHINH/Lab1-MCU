@@ -86,69 +86,111 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int counter = 5;
-  bool green_state = 1, yellow_state = 1; //initial state green, yellow led turn off
+  int counter = 5,  counter_2 = 5;
+  bool green_state = 1, yellow_state = 1; //initial state leds of ways 0 and 4
+  //initial state green, yellow led turn off
   bool red_state = 0; //for noise
+
+  //turn off led yellow and led green of way 0
   HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET);
+
+  //turn off led yellow and led green of way 4
+  HAL_GPIO_WritePin(LED_YELLOW_4_GPIO_Port, LED_YELLOW_4_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(LED_GREEN_4_GPIO_Port, LED_GREEN_4_Pin, GPIO_PIN_SET);
+
+  //turn off led yellow ways 2,3
+  HAL_GPIO_WritePin(LED_YELLOW_2_GPIO_Port, LED_YELLOW_2_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(LED_YELLOW_3_GPIO_Port, LED_YELLOW_3_Pin, GPIO_PIN_SET);
+
+  //turn off led red ways 2,3
+  HAL_GPIO_WritePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(LED_RED_3_GPIO_Port, LED_RED_3_Pin, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(counter >5)
-		  counter = 0;
+	  if(counter >5) //for noise
+		  counter = 5;
+
+	  if(counter_2 > 5) //for noise
+		  counter = 5;
+
+	  if(green_state && yellow_state && red_state)//for noise make all of leds turn off
+		  red_state = 0;
 
 	  switch(yellow_state)
 	  {
 	  	  case 0: // 0 meaning this led is turning off
 			  if(counter > 0) //for noise
 			  {
+				  //turn on led red ways 2,3
+				  HAL_GPIO_WritePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(LED_RED_3_GPIO_Port, LED_RED_3_Pin, GPIO_PIN_RESET);
+
 				  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(LED_YELLOW_4_GPIO_Port, LED_YELLOW_4_Pin, GPIO_PIN_RESET);
 			  }
 
 			  if(counter < 1)
 			  {
 				  //turn off led yellow
 				  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(LED_YELLOW_4_GPIO_Port, LED_YELLOW_4_Pin, GPIO_PIN_SET);
 				  yellow_state = 1;
 
-				  //set counter for green
-				  counter = 3;
+				  //set counter for red
+				  counter = 5;
 
-				  //turn on led green
-				  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
-				  green_state = 0;
+				  //turn on led red
+				  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(LED_RED_4_GPIO_Port, LED_RED_4_Pin, GPIO_PIN_RESET);
+				  red_state = 0;
 
+				  //turn off led red ways 2,3
+				  HAL_GPIO_WritePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(LED_RED_3_GPIO_Port, LED_RED_3_Pin, GPIO_PIN_SET);
+
+				  //turn on led green ways 2,3
+				  HAL_GPIO_WritePin(LED_GREEN_2_GPIO_Port, LED_GREEN_2_Pin, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(LED_GREEN_3_GPIO_Port, LED_GREEN_3_Pin, GPIO_PIN_RESET);
 			  }
 	  		  break;
 
-	  	  default: //turn off ignore
+	  	  default: //if turn off, switch to another ways
 	  		  break;
 	  }
 
 	  switch(green_state)
 	  {
 	  	  case 0:
+
 	  		  if(counter > 0) //for noise
 		  {
+	  			  //turn on led red ways 2,3
+				  HAL_GPIO_WritePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(LED_RED_3_GPIO_Port, LED_RED_3_Pin, GPIO_PIN_RESET);
+
 			  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
+			  HAL_GPIO_WritePin(LED_GREEN_4_GPIO_Port, LED_GREEN_4_Pin, GPIO_PIN_RESET);
 		  }
 
 	  		  if(counter < 1)
 		  {
 			  //turn off led green
 			  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET);
+			  HAL_GPIO_WritePin(LED_GREEN_4_GPIO_Port, LED_GREEN_4_Pin, GPIO_PIN_SET);
 			  green_state = 1;
 
-			  //set counter for red
-			  counter = 5;
+			  //set counter for yellow
+			  counter = 2;
 
-			  //turn on led red
-			  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
-			  red_state = 0;
-
+			  //turn on led yellow
+			  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
+			  HAL_GPIO_WritePin(LED_YELLOW_4_GPIO_Port, LED_YELLOW_4_Pin, GPIO_PIN_RESET);
+			  yellow_state = 0;
 		  }
 	  		  break;
 
@@ -159,23 +201,53 @@ int main(void)
 	  switch(red_state)
 	  {
 	  	  case 0:
-	  		  if(counter > 0)
+	  		  if(counter > 2)
+	  		  {
+	  			  //turn on led green ways 2,3
+				  HAL_GPIO_WritePin(LED_GREEN_2_GPIO_Port, LED_GREEN_2_Pin, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(LED_GREEN_3_GPIO_Port, LED_GREEN_3_Pin, GPIO_PIN_RESET);
+	  		  }
+
+	  		  if(counter < 3)
+	  		  {
+	  			  //turn off led green ways 2,3
+				  HAL_GPIO_WritePin(LED_GREEN_2_GPIO_Port, LED_GREEN_2_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(LED_GREEN_3_GPIO_Port, LED_GREEN_3_Pin, GPIO_PIN_SET);
+
+	  			  //turn on led yellow ways 2,3
+				  HAL_GPIO_WritePin(LED_YELLOW_2_GPIO_Port, LED_YELLOW_2_Pin, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(LED_YELLOW_3_GPIO_Port, LED_YELLOW_3_Pin, GPIO_PIN_RESET);
+	  		  }
+
+
+	  		  if(counter > 0) //for noise if it make turn off red led
 		  {
 			  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+			  HAL_GPIO_WritePin(LED_RED_4_GPIO_Port, LED_RED_4_Pin, GPIO_PIN_RESET);
 		  }
 
 	  		  if(counter < 1)
 		  {
 			  //turn off led red
 			  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
+			  HAL_GPIO_WritePin(LED_RED_4_GPIO_Port, LED_RED_4_Pin, GPIO_PIN_SET);
 			  red_state = 1;
 
-			  //set counter for yellow
-			  counter = 2;
+			  //set counter for green
+			  counter = 3;
 
-			  //turn on led yellow
-			  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
-			  yellow_state = 0;
+			  //turn on led green
+			  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
+			  HAL_GPIO_WritePin(LED_GREEN_4_GPIO_Port, LED_GREEN_4_Pin, GPIO_PIN_RESET);
+			  green_state = 0;
+
+			  //turn off led yellow ways 2,3
+			  HAL_GPIO_WritePin(LED_YELLOW_2_GPIO_Port, LED_YELLOW_2_Pin, GPIO_PIN_SET);
+			  HAL_GPIO_WritePin(LED_YELLOW_3_GPIO_Port, LED_YELLOW_3_Pin, GPIO_PIN_SET);
+
+			  //turn on led red ways 2,3
+			  HAL_GPIO_WritePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin, GPIO_PIN_RESET);
+			  HAL_GPIO_WritePin(LED_RED_3_GPIO_Port, LED_RED_3_Pin, GPIO_PIN_RESET);
 
 		  }
 	  		  break;

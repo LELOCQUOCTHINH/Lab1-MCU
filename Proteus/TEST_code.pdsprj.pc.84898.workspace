@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c0000000000000001000000ffffffffffffffffffffffffffffffff0000000000000000190500001e040000</PLACEMENT>
+  <PLACEMENT>2c0000000200000003000000ffffffffffffffffffffffffffffffff0000000000000000190500001e040000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
   <WINDOW type="symbol" module="LIBMAN"/>
  </FRAME>
@@ -360,10 +360,10 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="30" x="728" flags="00000008" y="835" h="13" pid="102" iid="1">
+   <POPUP w="258" x="728" flags="00000008" y="835" h="216" pid="102" iid="1">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="22" x="748" flags="00000008" y="855" h="18" pid="191" iid="1">
+   <POPUP w="194" x="748" flags="00000008" y="855" h="281" pid="191" iid="1">
     <PROPERTIES/>
    </POPUP>
   </PWI>
