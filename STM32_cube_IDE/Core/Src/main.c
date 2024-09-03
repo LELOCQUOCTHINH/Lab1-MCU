@@ -27,7 +27,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+	typedef enum {true, false} bool;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -86,7 +86,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  bool status = 0; //0 for red; 1 for yellow
   /* USER CODE END 2 */
 
   /* Infinite loop */
