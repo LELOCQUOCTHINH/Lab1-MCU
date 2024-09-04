@@ -87,15 +87,39 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
   bool status = 0; //0 for red; 1 for yellow
+  int counter = 2;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
+	  switch(status)
+	  {
+	  	  case 0:
+	  		  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+	  		  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
+	  		  if(counter<1)//counter <= 0
+	  		  {
+			  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
+	  		  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
+	  		   counter = 0;
+	  		  }
+	  		  break;
+
+	  	  default:
+		  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
+  		  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
+  		  if(counter<1)//counter <= 0
+  		  {
+		  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+  		  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
+  		   counter = 0;
+  		  }
+	  		  break;
+	  }
+	  counter--;
 	  HAL_Delay(1000);
-	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
