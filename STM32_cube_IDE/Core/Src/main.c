@@ -115,14 +115,14 @@ int main(void)
 		  hour = 0;
 	  }
 
-	  setAllClock();
-	  clearNumberOnClock(second/5);
+	  clearAllClock();
+	  setNumberOnClock(second/5);
 
-	  clearNumberOnClock(minute/5);
+	  setNumberOnClock(minute/5);
 
-	  clearNumberOnClock(hour);
+	  setNumberOnClock(hour);
 	  	 second++;
-	  HAL_Delay(100);
+	  HAL_Delay(10);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

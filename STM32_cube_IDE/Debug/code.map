@@ -68,9 +68,9 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./Core/Src/main.o
  .data          0x0000000000000000        0x0 ./Core/Src/main.o
  .bss           0x0000000000000000        0x0 ./Core/Src/main.o
- .text.clearAllClock
+ .text.setAllClock
                 0x0000000000000000       0x94 ./Core/Src/main.o
- .text.setNumberOnClock
+ .text.clearNumberOnClock
                 0x0000000000000000       0xf0 ./Core/Src/main.o
  .group         0x0000000000000000        0xc ./Core/Src/stm32f1xx_hal_msp.o
  .group         0x0000000000000000        0xc ./Core/Src/stm32f1xx_hal_msp.o
@@ -1905,12 +1905,12 @@ LOAD d:/stmmcu/stm32cubeide_1.7.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.
  *fill*         0x000000000800024e        0x2 
  .text.MX_GPIO_Init
                 0x0000000008000250       0x68 ./Core/Src/main.o
- .text.setAllClock
+ .text.clearAllClock
                 0x00000000080002b8       0x94 ./Core/Src/main.o
-                0x00000000080002b8                setAllClock
- .text.clearNumberOnClock
+                0x00000000080002b8                clearAllClock
+ .text.setNumberOnClock
                 0x000000000800034c       0xf0 ./Core/Src/main.o
-                0x000000000800034c                clearNumberOnClock
+                0x000000000800034c                setNumberOnClock
  .text.Error_Handler
                 0x000000000800043c        0xa ./Core/Src/main.o
                 0x000000000800043c                Error_Handler
