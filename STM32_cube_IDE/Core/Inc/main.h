@@ -90,6 +90,8 @@ void Error_Handler(void);
 #define F_7_SEG_GPIO_Port GPIOA
 #define G_7_SEG_Pin GPIO_PIN_14
 #define G_7_SEG_GPIO_Port GPIOA
+#define Anot_Common_Pin GPIO_PIN_15
+#define Anot_Common_GPIO_Port GPIOA
 #define LED_RED_4_Pin GPIO_PIN_4
 #define LED_RED_4_GPIO_Port GPIOB
 #define LED_YELLOW_4_Pin GPIO_PIN_5
