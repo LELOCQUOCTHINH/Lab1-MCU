@@ -107,7 +107,8 @@ int main(void)
   HAL_GPIO_WritePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LED_RED_3_GPIO_Port, LED_RED_3_Pin, GPIO_PIN_SET);
 
-  HAL_GPIO_WritePin(Anot_Common_GPIO_Port, Anot_Common_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(ANOT_COMMON_2_GPIO_Port, ANOT_COMMON_2_Pin, 1);
+  HAL_GPIO_WritePin(ANOT_COMMON_1_GPIO_Port, ANOT_COMMON_1_Pin, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -314,8 +315,9 @@ int main(void)
 	  		  display7SEG(counter/100);
 	  		  break;
 	  }
+	  HAL_GPIO_WritePin(ANOT_COMMON_2_GPIO_Port, ANOT_COMMON_2_Pin, anot);
 	  anot = !anot;
-	  HAL_GPIO_TogglePin(Anot_Common_GPIO_Port, Anot_Common_Pin);
+	  HAL_GPIO_WritePin(ANOT_COMMON_1_GPIO_Port, ANOT_COMMON_1_Pin, anot);
 	  counter_2--;
 	  counter--;
 	  HAL_Delay(10);
@@ -379,29 +381,29 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, LED_RED_2_Pin|LED_YELLOW_2_Pin|LED_GREEN_2_Pin|LED_RED_Pin
                           |LED_YELLOW_Pin|LED_GREEN_Pin|A_7_SEG_Pin|B_7_SEG_Pin
                           |C_7_SEG_Pin|D_7_SEG_Pin|E_7_SEG_Pin|F_7_SEG_Pin
-                          |G_7_SEG_Pin|Anot_Common_Pin, GPIO_PIN_RESET);
+                          |G_7_SEG_Pin|ANOT_COMMON_1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LED_RED_3_Pin|LED_YELLOW_3_Pin|LED_GREEN_3_Pin|LED_RED_4_Pin
-                          |LED_YELLOW_4_Pin|LED_GREEN_4_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LED_RED_3_Pin|LED_YELLOW_3_Pin|LED_GREEN_3_Pin|ANOT_COMMON_2_Pin
+                          |LED_RED_4_Pin|LED_YELLOW_4_Pin|LED_GREEN_4_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : LED_RED_2_Pin LED_YELLOW_2_Pin LED_GREEN_2_Pin LED_RED_Pin
                            LED_YELLOW_Pin LED_GREEN_Pin A_7_SEG_Pin B_7_SEG_Pin
                            C_7_SEG_Pin D_7_SEG_Pin E_7_SEG_Pin F_7_SEG_Pin
-                           G_7_SEG_Pin Anot_Common_Pin */
+                           G_7_SEG_Pin ANOT_COMMON_1_Pin */
   GPIO_InitStruct.Pin = LED_RED_2_Pin|LED_YELLOW_2_Pin|LED_GREEN_2_Pin|LED_RED_Pin
                           |LED_YELLOW_Pin|LED_GREEN_Pin|A_7_SEG_Pin|B_7_SEG_Pin
                           |C_7_SEG_Pin|D_7_SEG_Pin|E_7_SEG_Pin|F_7_SEG_Pin
-                          |G_7_SEG_Pin|Anot_Common_Pin;
+                          |G_7_SEG_Pin|ANOT_COMMON_1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED_RED_3_Pin LED_YELLOW_3_Pin LED_GREEN_3_Pin LED_RED_4_Pin
-                           LED_YELLOW_4_Pin LED_GREEN_4_Pin */
-  GPIO_InitStruct.Pin = LED_RED_3_Pin|LED_YELLOW_3_Pin|LED_GREEN_3_Pin|LED_RED_4_Pin
-                          |LED_YELLOW_4_Pin|LED_GREEN_4_Pin;
+  /*Configure GPIO pins : LED_RED_3_Pin LED_YELLOW_3_Pin LED_GREEN_3_Pin ANOT_COMMON_2_Pin
+                           LED_RED_4_Pin LED_YELLOW_4_Pin LED_GREEN_4_Pin */
+  GPIO_InitStruct.Pin = LED_RED_3_Pin|LED_YELLOW_3_Pin|LED_GREEN_3_Pin|ANOT_COMMON_2_Pin
+                          |LED_RED_4_Pin|LED_YELLOW_4_Pin|LED_GREEN_4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
